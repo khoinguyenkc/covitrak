@@ -1,9 +1,13 @@
-import logo from './logo.svg';
+
 import './App.css';
-import { FormControl, Select, MenuItem } from '@material-ui/core';
+import { FormControl, Select, MenuItem, Card, CardContent } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
+import InfoBox from './InfoBox';
+import Map from './Map';
+
 function App() {
   const [ countries, setCountries ] = useState([])
+  const [ country, setCountry ] = useState("")
 
   useEffect( () => {
 
@@ -27,16 +31,26 @@ function App() {
 
   }, [])
 
+
+  const onCountryChange = async (event) => {
+    const countryCode = event.target.value;
+    console.log(countryCode)
+    setCountry(countryCode) 
+  }
+
   return (
     <div className="app">
-      <div class="app__header">
+      <div className="app__left">
+
+      <div className="app__header">
       <h1>COVITRAX</h1>
       <FormControl className="app__dropdown">
         <Select
           variant="outlined"
-          value="abc"
+          value={country}
+          onChange={onCountryChange}
         >
-
+          <MenuItem value="worldwide">Worldwide</MenuItem>
           {countries.map( (country) => {
            return <MenuItem value={country.value}>{country.name}</MenuItem>
           } )}
@@ -46,14 +60,28 @@ function App() {
       </FormControl>
 
       </div>
-      {/* Header */}
-      {/* Dropdown Select */}
-      {/* InfoBox */}
-      {/* InfoBox */}
-      {/* InfoBox */}
-      {/* Table */}
-      {/* Graph */}
-      {/* Map */}
+
+      < div className="app__stats">
+      <InfoBox title="new cases" cases={143} total={2000}></InfoBox>
+      <InfoBox title="recovered" cases={143} total={2000}></InfoBox>
+      <InfoBox title="deaths" cases={143} total={2000}></InfoBox>
+      </div>
+
+      <Map></Map>
+
+      </div>
+
+      <div className="app__right">
+      <Card >
+            <CardContent>
+              <h3>LIve cases by country</h3>
+              <h3>Worldwide New cases</h3>
+
+            </CardContent>
+        </Card>          
+        {/* Graph */}
+
+      </div>
 
     </div>
   );
