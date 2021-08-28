@@ -6,8 +6,9 @@ import InfoBox from './InfoBox';
 import Map from './Map';
 
 function App() {
-  const [ countries, setCountries ] = useState([])
-  const [ country, setCountry ] = useState("")
+  const [ countries, setCountries ] = useState([]);
+  const [ country, setCountry ] = useState("");
+  const [ countryInfo, setCountryInfo ] = useState({country: "empty"});
 
   useEffect( () => {
 
@@ -31,11 +32,38 @@ function App() {
 
   }, [])
 
+  useEffect( () => {
+    // upon first load, load data for worldwide, to be used by map and table and stat boxes
+    fetch('https://disease.sh/v3/covid-19/all')
+    .then( (resp) => resp.json() )
+    .then( (data) => {
+      console.log(data)
+      setCountryInfo(data)
+
+    });
+
+
+  }, [])
+
+
 
   const onCountryChange = async (event) => {
     const countryCode = event.target.value;
     console.log(countryCode)
-    setCountry(countryCode) 
+    const url = countryCode === 'worldwide' ? `https://disease.sh/v3/covid-19/countries` : `https://disease.sh/v3/covid-19/countries/${countryCode}`;
+    
+    await fetch(url)
+    .then( (resp) => resp.json() )
+    .then( (data) => {
+      console.log(data)
+      setCountry(countryCode) 
+      setCountryInfo(data)
+
+    });
+
+    console.log("country info is", countryInfo)
+
+
   }
 
   return (
@@ -43,7 +71,10 @@ function App() {
       <div className="app__left">
 
       <div className="app__header">
-      <h1>COVITRAX</h1>
+      <h1>COVITRAK</h1>
+      <p>current country code: {country}</p>
+      <p>current country: {countryInfo.country}</p>
+
       <FormControl className="app__dropdown">
         <Select
           variant="outlined"
@@ -60,11 +91,17 @@ function App() {
       </FormControl>
 
       </div>
+      {/* "todayCases": 47,
+    "deaths": 7103,
+    "todayDeaths": 2,
+    "recovered": 109626,
+    "todayRecovered": 0,
+    "active": 36278, */}
 
       < div className="app__stats">
-      <InfoBox title="new cases" cases={143} total={2000}></InfoBox>
-      <InfoBox title="recovered" cases={143} total={2000}></InfoBox>
-      <InfoBox title="deaths" cases={143} total={2000}></InfoBox>
+      <InfoBox title="new cases" cases={countryInfo.todayCases} total={countryInfo.cases}></InfoBox>
+      <InfoBox title="recovered" cases={countryInfo.todayRecovered} total={countryInfo.recovered}></InfoBox>
+      <InfoBox title="deaths" cases={countryInfo.todayDeaths} total={countryInfo.deaths}></InfoBox>
       </div>
 
       <Map></Map>
