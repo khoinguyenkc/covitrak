@@ -39,6 +39,33 @@ code {
   border: 1px solid grey;
 }
 
+.app__dropdown {
+  width: 200px;
+}
+
+.resource__panel {
+  display: flex;
+}
+.resourcepanel__left {
+  width: 70%;
+  height: 100%;
+}
+
+.resourcepanel__left .card {
+  padding: 70px 30px;
+}
+
+.resourcepanel__right {
+  width: 30%;
+  padding: 20px;
+
+}
+
+
+.resourcepanel__right img{
+  width: 100%;
+}
+
 .app__stats {
   display: flex;
   justify-content: space-between;

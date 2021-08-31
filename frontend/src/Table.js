@@ -1,9 +1,22 @@
 import React from 'react'
-
-function Table() {
+import './Table.css'
+function Table({countries}) {
     return (
-        <div>
-            
+        <div className="table">
+
+            {countries.map( ({ country, cases }) => {
+                
+                return(
+                    <tr>
+                    <td>{country}</td>
+                    <td>
+                        <strong>{cases}</strong>
+                    </td>
+                </tr>
+                )
+
+            })}
+
         </div>
     )
 }
