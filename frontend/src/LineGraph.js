@@ -1,64 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
 import { Line } from 'react-chartjs-2';
-import numeral from "numeral";
-
-/*if i set maitnainaspect ratio false, for some reason the chart stretches forever. */
-const options = {
-    legend: {
-      display: true,
-      labels: {
-        fontColor: 'rgb(39, 82, 48)'
-    }
-
-    },
-    elements: {
-      point: {
-        radius: 0,
-      },
-    },
-    maintainAspectRatio: true,
-    tooltips: {
-      mode: "index",
-      intersect: false,
-      callbacks: {
-        label: function (tooltipItem, data) {
-          return numeral(tooltipItem.value).format("+0,0");
-        },
-      },
-    },
-    scales: {
-      xAxes: [
-        {
-          type: "time",
-          time: {
-            format: "MM/DD/YY",
-            tooltipFormat: "ll",
-          },
-        },
-      ],
-      yAxes: [
-        {
-          gridLines: {
-            display: false,
-          },
-          ticks: {
-            // Include a dollar sign in the ticks
-            callback: function (value, index, values) {
-              return numeral(value).format("0a");
-            },
-          },
-        },
-      ],
-    },
-  };
-  
+import { lineGraphOptions } from "./linegraphoptions";
 
 
 
   
 
-function LineGraph() {
+function LineGraph({casesType = "cases"}) {
     const [ data, setData ] = useState({})
     // curl -X GET "https://disease.sh/v3/covid-19/historical/all?lastdays=120"
 
@@ -77,19 +26,19 @@ function LineGraph() {
 
         let lastDataPoint; 
 
-        for ( let date in data.cases ) {
+        for ( let date in data[casesType] ) {
             /* data.cases is an object of key and values. each "date" is a key. like 09/20/21. value is how many cases. confusing i know */
             /*first iteration will skip this if loop, the rest always go thru it */
             if (lastDataPoint) {
                 let newDataPoint = {
                     x: date,
-                    y: data.cases[date] - lastDataPoint
+                    y: data[casesType][date] - lastDataPoint
                 }
                 chartData.push(newDataPoint);
             }
 
             /*update latest datapoint */
-            lastDataPoint = data.cases[date];
+            lastDataPoint = data[casesType][date];
         }
 
         return chartData;
@@ -125,7 +74,7 @@ function LineGraph() {
                         borderColor: "#CC1034"}
                     ]
                 }}
-                options={options}            
+                options={lineGraphOptions}            
             />)
             
             }
