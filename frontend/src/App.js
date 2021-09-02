@@ -13,6 +13,8 @@ import "leaflet/dist/leaflet.css";
 
 function App() {
   const [ countries, setCountries ] = useState([]);
+  const [ mapCountries, setMapCountries ] = useState([]);
+
   const [ country, setCountry ] = useState("worldwide");
   const [ countryInfo, setCountryInfo ] = useState({country: "empty"});
   const [ tableData, setTableData ] = useState([]);
@@ -25,6 +27,12 @@ function App() {
       await fetch('https://disease.sh/v3/covid-19/countries/').
     then((resp) => resp.json())
     .then((data) => { 
+        //we do 3 seprate things, they're not steps 
+        
+        //store raw data for map
+        setMapCountries(data);
+
+        //strip down data to make a very basic list of country codes
          const countries = data.map( (country) => (
             {
               name: country.country,
@@ -32,6 +40,9 @@ function App() {
             }
          ));
           setCountries(countries);
+
+          //sort data to ranked list
+
           const sortedData = sortData(data)
           setTableData(sortedData);
 
@@ -117,7 +128,13 @@ function App() {
       <InfoBox title="deaths" cases={countryInfo.todayDeaths} total={countryInfo.deaths}></InfoBox>
       </div>
 
-      <Map center={mapCenter} zoom={mapZoom}></Map>
+      <Map 
+        countries={mapCountries} 
+        center={mapCenter} 
+        zoom={mapZoom}
+      >
+
+      </Map>
       <ResourcePanel></ResourcePanel>
       </div>
 
