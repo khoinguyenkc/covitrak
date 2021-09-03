@@ -1,0 +1,48 @@
+.infoBox {
+    flex: 1;
+    cursor: pointer;
+}
+
+.infoBox:not(:last-child) {
+    margin-right: 15px;
+}
+
+.infoBox--selected {
+  border: 2px solid lightblue;
+  background-color: #e8f9ff !important;
+}
+.infoBox__cases {
+    font-weight: 600;
+    font-size: 2.5rem;
+  }
+
+  .infoBox__cases--green {
+    color: green;
+  }
+
+.infoBox__cases--red {
+    color: #cc1034;
+  
+
+  }
+
+
+  
+.infoBox_title {
+    font-weight: 600 !important;
+    font-size: .8rem !important;
+    color: grey !important;
+}
+.infoBox__cases_span {
+      font-size: .75rem;
+      
+  }
+
+  .infoBox__total {
+
+    color: #6c757d;
+    font-weight: 600 !important;
+    font-size: .75rem !important;
+    margin-top: 25px !important;
+  }
+  

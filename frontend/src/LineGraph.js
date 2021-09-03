@@ -7,7 +7,7 @@ import { lineGraphOptions } from "./linegraphoptions";
 
   
 
-function LineGraph({casesType = "cases"}) {
+function LineGraph({casesType}) {
     const [ data, setData ] = useState({})
     // curl -X GET "https://disease.sh/v3/covid-19/historical/all?lastdays=120"
 
@@ -56,28 +56,35 @@ function LineGraph({casesType = "cases"}) {
 
         fetchData()
         
-    }, [] )
+    }, [casesType] )
 
     {}
 
+                //  style={{height:"100px"}}
 
     return (
-        <div>
+        <div class="linegraph--section">
             <h2>Worldwide</h2>
+            <div class="linegraph-container">
             { data && data.length > 0 && (
                  <Line
                  style={{height:"200px"}}
                 data={{
                     datasets: [
-                        {data: data,
+                        {
+                            label: casesType.toUpperCase(),
+                            data: data,
                         backgroundColor: "rgba(204, 16, 52, 0.5)",
                         borderColor: "#CC1034"}
                     ]
                 }}
                 options={lineGraphOptions}            
-            />)
+            />
+            )
             
             }
+
+            </div>
             
 
         </div>

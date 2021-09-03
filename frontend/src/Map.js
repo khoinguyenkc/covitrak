@@ -9,7 +9,7 @@ function Map({countries, casesType = "cases", center, zoom}) {
     console.log("raw data of countries", countries)
     return (
         <div className="map">
-            <h2>Map goes here</h2>
+            <h4>{casesType}</h4>
             <LeafletMap center={center} zoom={zoom}>
                 <TileLayer 
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

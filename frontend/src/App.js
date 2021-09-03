@@ -17,6 +17,7 @@ function App() {
 
   const [ country, setCountry ] = useState("worldwide");
   const [ countryInfo, setCountryInfo ] = useState({country: "empty"});
+  const [ casesType, setCasesType ] = useState("cases")
   const [ tableData, setTableData ] = useState([]);
   const [ mapCenter, setMapCenter ] = useState( {lat: 34.80746, lng: -40.4796});
   const [mapZoom, setMapZoom] = useState(3);
@@ -28,7 +29,7 @@ function App() {
     then((resp) => resp.json())
     .then((data) => { 
         //we do 3 seprate things, they're not steps 
-        
+
         //store raw data for map
         setMapCountries(data);
 
@@ -96,23 +97,27 @@ function App() {
 
       <div className="app__header">
       <h1>COVITRAK</h1>
-      <p>current country code: {country}</p>
-      <p>current country: {countryInfo.country}</p>
-
+      {/* <p>current country code: {country}</p>
+      <p>current country: {countryInfo.country}</p> */}
+      <div>
+      <span>Select a country: </span>
       <FormControl className="app__dropdown">
         <Select
+          className="dropdown-item"
           variant="outlined"
           value={country}
           onChange={onCountryChange}
         >
-          <MenuItem value="worldwide">Worldwide</MenuItem>
+          <MenuItem className="dropdown-item" value="worldwide">Worldwide</MenuItem>
           {countries.map( (country) => {
-           return <MenuItem value={country.value}>{country.name}</MenuItem>
+           return <MenuItem className="dropdown-item" value={country.value}>{country.name}</MenuItem>
           } )}
 
         </Select>
 
       </FormControl>
+
+      </div>
 
       </div>
       {/* "todayCases": 47,
@@ -123,12 +128,31 @@ function App() {
     "active": 36278, */}
 
       < div className="app__stats">
-      <InfoBox title="new cases" cases={countryInfo.todayCases} total={countryInfo.cases}></InfoBox>
-      <InfoBox title="recovered" cases={countryInfo.todayRecovered} total={countryInfo.recovered}></InfoBox>
-      <InfoBox title="deaths" cases={countryInfo.todayDeaths} total={countryInfo.deaths}></InfoBox>
+
+      <InfoBox 
+      active={casesType === "cases"}
+      onClick={ (event) => setCasesType("cases")}
+      title="new cases" 
+      cases={countryInfo.todayCases} 
+      total={countryInfo.cases}
+      color="red"
+      ></InfoBox>
+      <InfoBox 
+            active={casesType === "recovered"}
+            onClick={ (event) => setCasesType("recovered")}
+            title="recovered" cases={countryInfo.todayRecovered}
+             total={countryInfo.recovered}
+             color="green"></InfoBox>
+      <InfoBox 
+            active={casesType === "deaths"}
+            onClick={ (event) => setCasesType("deaths")}
+title="deaths" cases={countryInfo.todayDeaths} total={countryInfo.deaths}
+color="red"
+></InfoBox>
       </div>
 
       <Map 
+        casesType = {casesType}
         countries={mapCountries} 
         center={mapCenter} 
         zoom={mapZoom}
@@ -143,7 +167,7 @@ function App() {
             <CardContent>
               <h2>Live cases by country</h2>
               <Table countries={tableData}></Table>
-              <LineGraph></LineGraph>
+              <LineGraph casesType={casesType} ></LineGraph>
             </CardContent>
         </Card>          
         {/* Graph */}

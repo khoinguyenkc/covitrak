@@ -2,19 +2,20 @@ import numeral from "numeral";
 
 /*if i set maitnainaspect ratio false, for some reason the chart stretches forever. */
 export const lineGraphOptions = {
-    legend: {
-      display: true,
-      labels: {
-        fontColor: 'rgb(39, 82, 48)'
-    }
+    // legend: {
+    //   display: false,
+    //   labels: {
+    //     fontColor: 'rgb(39, 82, 48)'
+    // }
 
-    },
+    // },
     elements: {
       point: {
         radius: 0,
       },
     },
-    maintainAspectRatio: true,
+    responsive: true,
+    maintainAspectRatio: false,
     tooltips: {
       mode: "index",
       intersect: false,
@@ -28,9 +29,15 @@ export const lineGraphOptions = {
       xAxes: [
         {
           type: "time",
+          format: "MM/YY",
+
           time: {
-            format: "MM/DD/YY",
-            tooltipFormat: "ll",
+            // tooltipFormat: "ll",
+          //   displayFormats: {
+          //     month: 'MM YYYY'
+          // },
+
+
           },
         },
       ],

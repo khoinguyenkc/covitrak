@@ -5,66 +5,62 @@
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
 }
 
 body {
-  background-color: #f5f5fa;
+  /* background-color: #f5f5fa; */
+  background-image: linear-gradient(  #8FBC8F, rgba(255,0,0,0) );
+
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
 .app {
   display: flex;
   justify-content: space-between;
   padding: 20px;
 }
 
+.app__header > h1 {
+  color: green;
+  font-size: 3rem;
+}
+
 .app__left {
-  flex: 2;
-  border: 1px solid grey;
+flex: .9;
+/* border: 1px solid blue; */
 }
 
 .app__right {
-  flex: 1;
-  border: 1px solid grey;
+  /* border: 1px solid grey; */
 
 
 }
 .app__header{
   display: flex;
+  justify-content: space-between;
   margin-top: 20px; 
   margin-bottom: 30px; 
-  border: 1px solid grey;
+  /* border: 1px solid grey; */
 }
 
 .app__dropdown {
   width: 200px;
+  background-color: lightblue;
 }
 
-.resource__panel {
-  display: flex;
-}
-.resourcepanel__left {
-  width: 70%;
-  height: 100%;
-}
-
-.resourcepanel__left .card {
-  padding: 70px 30px;
-}
-
-.resourcepanel__right {
-  width: 30%;
-  padding: 20px;
-
+.dropdown-item {
+  font-weight: 800 !important;
+  color: grey !important;
 }
 
 
-.resourcepanel__right img{
-  width: 100%;
-}
+
 
 .app__stats {
   display: flex;
@@ -77,3 +73,56 @@ code {
   }
 }
 
+.linegraph--section  {
+  padding-top: 20px;
+
+}
+
+.linegraph--section h2 {
+  margin-bottom: 20px;
+}
+.linegraph-container {
+  height: 400px;
+}
+
+
+.resource__panel {
+  padding: 30px 30px !important;
+
+}
+
+.resource__panel h2 {
+  margin-bottom: 30px !important;
+}
+ 
+
+.resourcepanel__left {
+  width: 70%;
+  height: 100%;
+}
+
+/* 
+
+.resourcepanel__left .card {
+  padding: 70px 30px;
+} */
+
+.resourcepanel__right {
+  border: 1px solid green;
+  width: 30%;
+
+}
+
+
+.resourcepanel__right img{
+  width: 100%;
+}
+
+.resource__panel p {
+  margin-bottom: 5px;
+}
+.resource__panel a {
+  text-decoration: none !important;
+  font-weight: 600 !important;
+  color: grey;
+}
