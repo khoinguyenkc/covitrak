@@ -132,11 +132,12 @@ function App() {
       <InfoBox 
       active={casesType === "cases"}
       onClick={ (event) => setCasesType("cases")}
-      title="new cases" 
+      title="cases" 
       cases={countryInfo.todayCases} 
       total={countryInfo.cases}
       color="red"
       ></InfoBox>
+      
       <InfoBox 
             active={casesType === "recovered"}
             onClick={ (event) => setCasesType("recovered")}

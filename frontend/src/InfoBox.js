@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, Typography } from '@material-ui/core';
 import './InfoBox.css';
 import { prettyPrintStat } from './util.js'
 function InfoBox({title, cases, total, active, color, ...props}) {
     const cssColorClass = `infoBox__cases--${color}`
+
     return (
         <Card 
             onClick ={props.onClick}
